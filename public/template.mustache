@@ -1,0 +1,750 @@
+<div class="jui-grid table {{css}}">
+    <div class="grid-row header">
+        {{#columns}}
+            <div class="js-column-{{field}} grid-column grid-column-{{field}} {{#hidden}}hidden{{/hidden}}">
+                <div class="grid-column-inner">
+                    {{{label}}}
+                </div>
+            </div>
+        {{/columns}}
+    </div>
+    <div class="body">
+        {{#rows:rowIndex}}
+            <div class="grid-row">
+                <!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[0].field}} grid-column grid-column-{{columns[0].field}} {{ (columns[0].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[0].field}}" style="{{cellStyle[rowIndex][0]}}">
+        <a href="" on-click="openItemTab" data-field="id">{{documentKey}}</a>
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[1].field}} grid-column grid-column-{{columns[1].field}} {{ (columns[1].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[1].field}}" style="{{cellStyle[rowIndex][1]}}">
+        <img decorator="celleditor" src="img/tree/{{documentType.image}}">
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[2].field}} grid-column grid-column-{{columns[2].field}} {{ (columns[2].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[2].field}}" style="{{cellStyle[rowIndex][2]}}">
+        {{#locked}}
+    <img src="img/16/lock_15.png" title="Locked By {{lockedBy.name}}" decorator="celleditor">
+{{/locked}}
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[3].field}} grid-column grid-column-{{columns[3].field}} {{ (columns[3].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[3].field}}" style="{{cellStyle[rowIndex][3]}}">
+        {{# columns[3].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[3].readOnly) || (celleditor.editingRow == rowIndex && columns[3].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[3].field != 'name' && columns[3].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[3].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[3].field == 'name' || columns[3].field == 'description'))))}}
+        <span decorator="celleditor" class="overflow-cell" >
+            {{#name}}
+                {{name}}
+            {{/name}}
+            {{^name}}
+                {{'No ' + columns[3].label}}
+            {{/name}}
+        </span>
+    {{/celleditor.editingRow}}
+
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[3].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[3].field == 'name' || columns[3].field == 'description'))))}}
+        <div class="control-group editing overflow-cell {{#  validator.errorCells.indexOf(rowIndex + '_3') !== -1}}error{{/end validator}}" >
+            <input decorator="celleditor" type="text" value="{{name}}" maxlength="255"  title="{{validator.errorMessages[rowIndex + '_3']}}">
+        </div>
+    {{/celleditor.editingRow}}
+{{/}}
+
+{{# columns[3].custom === true}}
+    {{# customFields:customFieldIndex}}
+        {{# columns[3].documentFieldId == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex || columns[3].readOnly) || (celleditor.editingRow == rowIndex && columns[3].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[3].field != 'name' && columns[3].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[3].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[3].field == 'name' || columns[3].field == 'description'))))}}
+                <span decorator="celleditor" class="overflow-cell">
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0 && (rows[rowIndex].customFields[customFieldIndex].fieldValues[0] +'')}}
+                        {{rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}
+                    {{/}}
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0 || ! (rows[rowIndex].customFields[customFieldIndex].fieldValues[0] + '')}}
+                        {{'No ' + columns[3].label}}
+                    {{/}}
+                </span>
+            {{/celleditor.editingRow}}
+
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[3].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[3].field == 'name' || columns[3].field == 'description'))))}}
+                <div class="control-group overflow-cell editing {{#  validator.errorCells.indexOf(rowIndex + '_3') !== -1}}error{{/end validator}}">
+                    <input decorator="celleditor" type="text" value="{{rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}" maxlength="255"  title="{{validator.errorMessages[rowIndex + '_3']}}">
+                </div>
+            {{/celleditor.editingRow}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+
+
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[4].field}} grid-column grid-column-{{columns[4].field}} {{ (columns[4].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[4].field}}" style="{{cellStyle[rowIndex][4]}}">
+        {{# columns[4].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[4].readOnly) || (celleditor.editingRow == rowIndex && columns[4].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[4].field != 'name' && columns[4].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[4].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[4].field == 'name' || columns[4].field == 'description'))))}}
+        <span decorator="celleditor" class="overflow-cell" data-field="modifiedBy">{{modifiedBy.name || 'No ' + columns[4].label}}</span>
+    {{/}}
+
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[4].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[4].field == 'name' || columns[4].field == 'description'))))}}
+        <div class="input-append overflow-cell editing" decorator="celleditor" on-click="openUserSelector" data-field="modifiedBy">
+            <input value="{{modifiedBy.name}}" type="text" />
+            <span class="add-on"><i class="icon-search"></i></span>
+        </div>
+    {{/}}
+{{/}}
+
+
+{{# columns[4].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{# columns[4].documentFieldId  == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[4].readOnly) || (celleditor.editingRow == rowIndex && columns[4].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[4].field != 'name' && columns[4].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[4].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[4].field == 'name' || columns[4].field == 'description'))))}}
+                <span decorator="celleditor" class="overflow-cell" data-value="id" data-bind="display:name" data-field="fieldValues[0]">
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0}}
+                        {{rows[rowIndex].customFields[customFieldIndex].display}}
+                    {{/}}
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0}}
+                        {{'No ' + columns[4].label}}
+                    {{/}}
+                </span>
+            {{/}}
+
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[4].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[4].field == 'name' || columns[4].field == 'description'))))}}
+                <div class="input-append overflow-cell editing" decorator="celleditor" on-click="openUserSelector" data-value="id" data-bind="display:name" data-field="fieldValues[0]">
+                    <input value="{{rows[rowIndex].customFields[customFieldIndex].display}}" type="text" tabindex="-1" readonly/>
+                    <a class="add-on" href="#"><i class="icon-search"></i></a>
+                </div>
+            {{/}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[5].field}} grid-column grid-column-{{columns[5].field}} {{ (columns[5].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[5].field}}" style="{{cellStyle[rowIndex][5]}}">
+        {{# columns[5].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[5].readOnly) || (celleditor.editingRow == rowIndex && columns[5].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[5].field != 'name' && columns[5].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[5].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[5].field == 'name' || columns[5].field == 'description'))))}}
+        <span class="overflow-cell" decorator="celleditor" data-field="modifiedDate">
+        {{# modifiedDate && modifiedDate !== null}}
+            {{formatDate(modifiedDate)}}
+        {{/modifiedDate}}
+
+        {{# !modifiedDate}}
+            {{'No ' + columns[5].label}}
+        {{/modifiedDate}}
+        </span>
+    {{/}}
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[5].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[5].field == 'name' || columns[5].field == 'description'))))}}
+        <div class="editing control-group overflow-cell">
+            <div class="input-append date" on-click="openDatePrompt" data-field="modifiedDate">
+                <input type="text" decorator="celleditor" on-change="dateChange" data-field="modifiedDate" value="{{formatDate(modifiedDate)}}"  title="{{validator.errorMessages[rowIndex + '_5']}}"/>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+        </div>
+    {{/}}
+{{/}}
+
+{{# columns[5].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{# columns[5].documentFieldId  == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[5].readOnly) || (celleditor.editingRow == rowIndex && columns[5].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[5].field != 'name' && columns[5].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[5].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[5].field == 'name' || columns[5].field == 'description'))))}}
+                <span decorator="celleditor" data-field="fieldValues[0]" class="overflow-cell">
+                {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0}}
+                    {{formatDate(parseInt(rows[rowIndex].customFields[customFieldIndex].fieldValues[0]))}}
+                {{/}}
+                {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0}}
+                    {{'No ' + columns[5].label}}
+                {{/}}
+                </span>
+            {{/}}
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[5].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[5].field == 'name' || columns[5].field == 'description'))))}}
+                <div class="editing control-group overflow-cell">
+                    <div class="input-append date" on-click="openDatePrompt" data-field="fieldValues">
+                        <input type="text" decorator="celleditor" on-change="dateChange" data-field="fieldValues" value="{{formatDate(parseInt(rows[rowIndex].customFields[customFieldIndex].fieldValues[0]))}}"  title="{{validator.errorMessages[rowIndex + '_5']}}"/>
+                        <span class="add-on"><i class="icon-th"></i></span>
+                    </div>
+                </div>
+            {{/}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[6].field}} grid-column grid-column-{{columns[6].field}} {{ (columns[6].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[6].field}}" style="{{cellStyle[rowIndex][6]}}">
+        {{# columns[6].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[6].readOnly) || (celleditor.editingRow == rowIndex && columns[6].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[6].field != 'name' && columns[6].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[6].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[6].field == 'name' || columns[6].field == 'description'))))}}
+        <span decorator="celleditor" class="cell-lookup overflow-cell">
+            {{status.name || 'No ' + columns[6].label}}
+        </span>
+    {{/celleditor.editingRow}}
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[6].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[6].field == 'name' || columns[6].field == 'description'))))}}
+                <select decorator="celleditor" data-celleditor-ignore="ENTER" on-change="fixSelectValue" data-column-index="6" data-field="status" value="{{status.id}}">
+                    {{# columns.6.options}}
+                        <option value="{{id}}">{{name}}</option>
+                    {{/ columns.6.options}}
+                </select>
+    {{/celleditor.editingRow}}
+{{/}}
+
+
+
+{{# columns[6].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{# columns[6].documentFieldId  == fieldId}}
+                {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[6].readOnly) || (celleditor.editingRow == rowIndex && columns[6].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[6].field != 'name' && columns[6].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[6].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[6].field == 'name' || columns[6].field == 'description'))))}}
+                    {{#columns.6.options}}
+                        {{#rows[rowIndex].customFields[customFieldIndex].fieldValues[0] == id}}
+                            <span class="cell-lookup overflow-cell" decorator="celleditor">
+                                {{name}}
+                            </span>
+                        {{/}}
+                    {{/columns.6.options}}
+
+                    {{^rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}
+                        <span decorator="celleditor" class="overflow-cell">
+                            {{'No ' + columns[6].label}}
+                        </span>
+                    {{/rows.rowIndex.customFields.customFieldIndex.fieldValues[0]}}
+            {{/celleditor.editingRow}}
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[6].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[6].field == 'name' || columns[6].field == 'description'))))}}
+                <select decorator="celleditor" data-celleditor-ignore="ENTER" data-field="status" value="{{rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}" >
+                    {{# columns.6.options}}
+                        <option value="{{id}}">{{name}}</option>
+                    {{/ columns.6.options}}
+                </select>
+            {{/celleditor.editingRow}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[7].field}} grid-column grid-column-{{columns[7].field}} {{ (columns[7].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[7].field}}" style="{{cellStyle[rowIndex][7]}}">
+        {{# columns[7].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[7].readOnly) || (celleditor.editingRow == rowIndex && columns[7].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[7].field != 'name' && columns[7].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[7].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[7].field == 'name' || columns[7].field == 'description'))))}}
+        <span decorator="celleditor" class="overflow-cell" >
+            {{#sequence}}
+                {{sequence}}
+            {{/sequence}}
+            {{^sequence}}
+                {{'No ' + columns[7].label}}
+            {{/sequence}}
+        </span>
+    {{/celleditor.editingRow}}
+
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[7].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[7].field == 'name' || columns[7].field == 'description'))))}}
+        <div class="control-group editing overflow-cell {{#  validator.errorCells.indexOf(rowIndex + '_7') !== -1}}error{{/end validator}}" >
+            <input decorator="celleditor" type="text" value="{{sequence}}" maxlength="255"  title="{{validator.errorMessages[rowIndex + '_7']}}">
+        </div>
+    {{/celleditor.editingRow}}
+{{/}}
+
+{{# columns[7].custom === true}}
+    {{# customFields:customFieldIndex}}
+        {{# columns[7].documentFieldId == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex || columns[7].readOnly) || (celleditor.editingRow == rowIndex && columns[7].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[7].field != 'name' && columns[7].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[7].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[7].field == 'name' || columns[7].field == 'description'))))}}
+                <span decorator="celleditor" class="overflow-cell">
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0 && (rows[rowIndex].customFields[customFieldIndex].fieldValues[0] +'')}}
+                        {{rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}
+                    {{/}}
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0 || ! (rows[rowIndex].customFields[customFieldIndex].fieldValues[0] + '')}}
+                        {{'No ' + columns[7].label}}
+                    {{/}}
+                </span>
+            {{/celleditor.editingRow}}
+
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[7].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[7].field == 'name' || columns[7].field == 'description'))))}}
+                <div class="control-group overflow-cell editing {{#  validator.errorCells.indexOf(rowIndex + '_7') !== -1}}error{{/end validator}}">
+                    <input decorator="celleditor" type="text" value="{{rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}" maxlength="255"  title="{{validator.errorMessages[rowIndex + '_7']}}">
+                </div>
+            {{/celleditor.editingRow}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+
+
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[8].field}} grid-column grid-column-{{columns[8].field}} {{ (columns[8].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[8].field}}" style="{{cellStyle[rowIndex][8]}}">
+        {{# columns[8].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[8].readOnly) || (celleditor.editingRow == rowIndex && columns[8].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[8].field != 'name' && columns[8].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[8].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[8].field == 'name' || columns[8].field == 'description'))))}}
+        <span decorator="celleditor" class="overflow-cell">
+            {{#id}}
+                {{id}}
+            {{/id}}
+            {{^id}}
+                {{'No ' + columns[8].label}}
+            {{/id}}
+        </span>
+    {{/celleditor.editingRow}}
+
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[8].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[8].field == 'name' || columns[8].field == 'description'))))}}
+        <div class="control-group editing overflow-cell {{#  validator.errorCells.indexOf(rowIndex + '_8') !== -1}}error{{/end validator}}">
+            <input decorator="celleditor" data-column-index="8" type="text" value="{{id}}" maxlength="255" title="{{validator.errorMessages[rowIndex + '_8']}}">
+        </div>
+    {{/celleditor.editingRow}}
+{{/}}
+
+{{# columns[8].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{# columns[8].documentFieldId  == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[8].readOnly) || (celleditor.editingRow == rowIndex && columns[8].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[8].field != 'name' && columns[8].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[8].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[8].field == 'name' || columns[8].field == 'description'))))}}
+                <span decorator="celleditor" class="overflow-cell">
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0 && (rows[rowIndex].customFields[customFieldIndex].fieldValues[0] +'')}}
+                        {{rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}
+                    {{/}}
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0 || ! (rows[rowIndex].customFields[customFieldIndex].fieldValues[0] + '')}}
+                        {{'No ' + columns[8].label}}
+                    {{/}}
+                </span>
+            {{/celleditor.editingRow}}
+
+        {{# editable && ((celleditor.editingRow == rowIndex && !columns[8].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[8].field == 'name' || columns[8].field == 'description'))))}}
+                <div class="control-group overflow-cell editing {{#  validator.errorCells.indexOf(rowIndex + '_8') !== -1}}error{{/end validator}}">
+                    <input decorator="celleditor" type="text" value="{{rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}" maxlength="255" data-column-index="8" title="{{validator.errorMessages[rowIndex + '_8']}}">
+                </div>
+            {{/celleditor.editingRow}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+
+
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[9].field}} grid-column grid-column-{{columns[9].field}} {{ (columns[9].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[9].field}}" style="{{cellStyle[rowIndex][9]}}">
+        {{# columns[9].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[9].readOnly) || (celleditor.editingRow == rowIndex && columns[9].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[9].field != 'name' && columns[9].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[9].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[9].field == 'name' || columns[9].field == 'description'))))}}
+        <span decorator="celleditor" class="overflow-cell" data-field="lockedBy">{{lockedBy.name || 'No ' + columns[9].label}}</span>
+    {{/}}
+
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[9].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[9].field == 'name' || columns[9].field == 'description'))))}}
+        <div class="input-append overflow-cell editing" decorator="celleditor" on-click="openUserSelector" data-field="lockedBy">
+            <input value="{{lockedBy.name}}" type="text" />
+            <span class="add-on"><i class="icon-search"></i></span>
+        </div>
+    {{/}}
+{{/}}
+
+
+{{# columns[9].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{# columns[9].documentFieldId  == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[9].readOnly) || (celleditor.editingRow == rowIndex && columns[9].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[9].field != 'name' && columns[9].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[9].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[9].field == 'name' || columns[9].field == 'description'))))}}
+                <span decorator="celleditor" class="overflow-cell" data-value="id" data-bind="display:name" data-field="fieldValues[0]">
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0}}
+                        {{rows[rowIndex].customFields[customFieldIndex].display}}
+                    {{/}}
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0}}
+                        {{'No ' + columns[9].label}}
+                    {{/}}
+                </span>
+            {{/}}
+
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[9].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[9].field == 'name' || columns[9].field == 'description'))))}}
+                <div class="input-append overflow-cell editing" decorator="celleditor" on-click="openUserSelector" data-value="id" data-bind="display:name" data-field="fieldValues[0]">
+                    <input value="{{rows[rowIndex].customFields[customFieldIndex].display}}" type="text" tabindex="-1" readonly/>
+                    <a class="add-on" href="#"><i class="icon-search"></i></a>
+                </div>
+            {{/}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[10].field}} grid-column grid-column-{{columns[10].field}} {{ (columns[10].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[10].field}}" style="{{cellStyle[rowIndex][10]}}">
+        {{# columns[10].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[10].readOnly) || (celleditor.editingRow == rowIndex && columns[10].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[10].field != 'name' && columns[10].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[10].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[10].field == 'name' || columns[10].field == 'description'))))}}
+        <span class="overflow-cell" decorator="celleditor" data-field="lockedDate">
+        {{# lockedDate && lockedDate !== null}}
+            {{formatDate(lockedDate)}}
+        {{/lockedDate}}
+
+        {{# !lockedDate}}
+            {{'No ' + columns[10].label}}
+        {{/lockedDate}}
+        </span>
+    {{/}}
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[10].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[10].field == 'name' || columns[10].field == 'description'))))}}
+        <div class="editing control-group overflow-cell">
+            <div class="input-append date" on-click="openDatePrompt" data-field="lockedDate">
+                <input type="text" decorator="celleditor" on-change="dateChange" data-field="lockedDate" value="{{formatDate(lockedDate)}}"  title="{{validator.errorMessages[rowIndex + '_10']}}"/>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+        </div>
+    {{/}}
+{{/}}
+
+{{# columns[10].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{# columns[10].documentFieldId  == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[10].readOnly) || (celleditor.editingRow == rowIndex && columns[10].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[10].field != 'name' && columns[10].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[10].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[10].field == 'name' || columns[10].field == 'description'))))}}
+                <span decorator="celleditor" data-field="fieldValues[0]" class="overflow-cell">
+                {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0}}
+                    {{formatDate(parseInt(rows[rowIndex].customFields[customFieldIndex].fieldValues[0]))}}
+                {{/}}
+                {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0}}
+                    {{'No ' + columns[10].label}}
+                {{/}}
+                </span>
+            {{/}}
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[10].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[10].field == 'name' || columns[10].field == 'description'))))}}
+                <div class="editing control-group overflow-cell">
+                    <div class="input-append date" on-click="openDatePrompt" data-field="fieldValues">
+                        <input type="text" decorator="celleditor" on-change="dateChange" data-field="fieldValues" value="{{formatDate(parseInt(rows[rowIndex].customFields[customFieldIndex].fieldValues[0]))}}"  title="{{validator.errorMessages[rowIndex + '_10']}}"/>
+                        <span class="add-on"><i class="icon-th"></i></span>
+                    </div>
+                </div>
+            {{/}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[11].field}} grid-column grid-column-{{columns[11].field}} {{ (columns[11].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[11].field}}" style="{{cellStyle[rowIndex][11]}}">
+        {{# columns[11].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[11].readOnly) || (celleditor.editingRow == rowIndex && columns[11].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[11].field != 'name' && columns[11].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[11].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[11].field == 'name' || columns[11].field == 'description'))))}}
+        <span decorator="celleditor" class="overflow-cell" data-field="createdBy">{{createdBy.name || 'No ' + columns[11].label}}</span>
+    {{/}}
+
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[11].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[11].field == 'name' || columns[11].field == 'description'))))}}
+        <div class="input-append overflow-cell editing" decorator="celleditor" on-click="openUserSelector" data-field="createdBy">
+            <input value="{{createdBy.name}}" type="text" />
+            <span class="add-on"><i class="icon-search"></i></span>
+        </div>
+    {{/}}
+{{/}}
+
+
+{{# columns[11].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{# columns[11].documentFieldId  == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[11].readOnly) || (celleditor.editingRow == rowIndex && columns[11].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[11].field != 'name' && columns[11].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[11].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[11].field == 'name' || columns[11].field == 'description'))))}}
+                <span decorator="celleditor" class="overflow-cell" data-value="id" data-bind="display:name" data-field="fieldValues[0]">
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0}}
+                        {{rows[rowIndex].customFields[customFieldIndex].display}}
+                    {{/}}
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0}}
+                        {{'No ' + columns[11].label}}
+                    {{/}}
+                </span>
+            {{/}}
+
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[11].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[11].field == 'name' || columns[11].field == 'description'))))}}
+                <div class="input-append overflow-cell editing" decorator="celleditor" on-click="openUserSelector" data-value="id" data-bind="display:name" data-field="fieldValues[0]">
+                    <input value="{{rows[rowIndex].customFields[customFieldIndex].display}}" type="text" tabindex="-1" readonly/>
+                    <a class="add-on" href="#"><i class="icon-search"></i></a>
+                </div>
+            {{/}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[12].field}} grid-column grid-column-{{columns[12].field}} {{ (columns[12].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[12].field}}" style="{{cellStyle[rowIndex][12]}}">
+        {{# columns[12].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[12].readOnly) || (celleditor.editingRow == rowIndex && columns[12].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[12].field != 'name' && columns[12].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[12].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[12].field == 'name' || columns[12].field == 'description'))))}}
+        <span class="overflow-cell" decorator="celleditor" data-field="createdDate">
+        {{# createdDate && createdDate !== null}}
+            {{formatDate(createdDate)}}
+        {{/createdDate}}
+
+        {{# !createdDate}}
+            {{'No ' + columns[12].label}}
+        {{/createdDate}}
+        </span>
+    {{/}}
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[12].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[12].field == 'name' || columns[12].field == 'description'))))}}
+        <div class="editing control-group overflow-cell">
+            <div class="input-append date" on-click="openDatePrompt" data-field="createdDate">
+                <input type="text" decorator="celleditor" on-change="dateChange" data-field="createdDate" value="{{formatDate(createdDate)}}"  title="{{validator.errorMessages[rowIndex + '_12']}}"/>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+        </div>
+    {{/}}
+{{/}}
+
+{{# columns[12].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{# columns[12].documentFieldId  == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[12].readOnly) || (celleditor.editingRow == rowIndex && columns[12].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[12].field != 'name' && columns[12].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[12].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[12].field == 'name' || columns[12].field == 'description'))))}}
+                <span decorator="celleditor" data-field="fieldValues[0]" class="overflow-cell">
+                {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0}}
+                    {{formatDate(parseInt(rows[rowIndex].customFields[customFieldIndex].fieldValues[0]))}}
+                {{/}}
+                {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0}}
+                    {{'No ' + columns[12].label}}
+                {{/}}
+                </span>
+            {{/}}
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[12].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[12].field == 'name' || columns[12].field == 'description'))))}}
+                <div class="editing control-group overflow-cell">
+                    <div class="input-append date" on-click="openDatePrompt" data-field="fieldValues">
+                        <input type="text" decorator="celleditor" on-change="dateChange" data-field="fieldValues" value="{{formatDate(parseInt(rows[rowIndex].customFields[customFieldIndex].fieldValues[0]))}}"  title="{{validator.errorMessages[rowIndex + '_12']}}"/>
+                        <span class="add-on"><i class="icon-th"></i></span>
+                    </div>
+                </div>
+            {{/}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[13].field}} grid-column grid-column-{{columns[13].field}} {{ (columns[13].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[13].field}}" style="{{cellStyle[rowIndex][13]}}">
+        <span decorator="celleditor" class="overflow-cell">{{project.name}}</span>
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[14].field}} grid-column grid-column-{{columns[14].field}} {{ (columns[14].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[14].field}}" style="{{cellStyle[rowIndex][14]}}">
+        {{# columns[14].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[14].readOnly) || (celleditor.editingRow == rowIndex && columns[14].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[14].field != 'name' && columns[14].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[14].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[14].field == 'name' || columns[14].field == 'description'))))}}
+        <span decorator="celleditor" class="overflow-cell" data-field="description">{{{stripHtml(description || 'No ' + columns[14].label)}}}</span>
+    {{/celleditor.editingRow}}
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[14].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[14].field == 'name' || columns[14].field == 'description'))))}}
+        <div class="input-append overflow-cell editing" decorator="celleditor" data-field="description" data-column="14" on-click="openEditor" >
+            <input type="text" value="Click to edit" data-field="description" readonly/>
+            <a href="#" class="add-on"><i class="icon-pencil"></i></a>
+        </div>
+    {{/celleditor.editingRow}}
+{{/}}
+
+{{# columns[14].custom === true}}
+    {{# customFields:customFieldIndex}}
+        {{# columns[14].documentFieldId  == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[14].readOnly) || (celleditor.editingRow == rowIndex && columns[14].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[14].field != 'name' && columns[14].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[14].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[14].field == 'name' || columns[14].field == 'description'))))}}
+                <span decorator="celleditor" class="overflow-cell" data-field="fieldValues[0]">
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0}}
+                        {{{stripHtml(rows[rowIndex].customFields[customFieldIndex].fieldValues[0])}}}
+                    {{/}}
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0}}
+                        {{'No ' + columns[14].label}}
+                    {{/}}
+                </span>
+            {{/celleditor.editingRow}}
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[14].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[14].field == 'name' || columns[14].field == 'description'))))}}
+                <div class="input-append overflow-cell editing" decorator="celleditor" data-field="fieldValues[0]" data-column="14" on-click="openEditor">
+                    <input type="text" value="Click to edit" data-field="fieldValues[0]" tabindex="-1" readonly/>
+                    <a class="add-on" href="#"><i class="icon-pencil"></i></a>
+                </div>
+            {{/celleditor.editingRow}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[15].field}} grid-column grid-column-{{columns[15].field}} {{ (columns[15].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[15].field}}" style="{{cellStyle[rowIndex][15]}}">
+        <a href="" on-click="openItemTab" data-field="id">{{globalId}}</a>
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[16].field}} grid-column grid-column-{{columns[16].field}} {{ (columns[16].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[16].field}}" style="{{cellStyle[rowIndex][16]}}">
+        {{# columns[16].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[16].readOnly) || (celleditor.editingRow == rowIndex && columns[16].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[16].field != 'name' && columns[16].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[16].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[16].field == 'name' || columns[16].field == 'description'))))}}
+        <div decorator="celleditor" class="overflow-cell">
+            {{#kjkj}}
+                {{kjkj}}
+            {{/kjkj}}
+            {{# !kjkj}}
+                {{'No ' + columns[16].label}}
+            {{/kjkj}}
+        </div>
+    {{/celleditor.editingRow}}
+
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[16].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[16].field == 'name' || columns[16].field == 'description'))))}}
+        <div class="celleditor-textarea-edit control-group overflow-cell editing">
+            <textarea decorator="celleditor" data-celleditor-ignore="ENTER" type="text" value="{{kjkj}}"></textarea>
+        </div>
+    {{/celleditor.editingRow}}
+{{/}}
+
+{{# columns[16].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{# columns[16].documentFieldId  == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[16].readOnly) || (celleditor.editingRow == rowIndex && columns[16].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[16].field != 'name' && columns[16].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[16].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[16].field == 'name' || columns[16].field == 'description'))))}}
+                <div decorator="celleditor" class="overflow-cell">
+                {{#rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}
+                    {{rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}
+                {{/}}
+                {{# !rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}
+                    {{'No ' + columns[16].label}}
+                {{/}}
+                </div>
+            {{/celleditor.editingRow}}
+
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[16].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[16].field == 'name' || columns[16].field == 'description'))))}}
+                <div class="celleditor-textarea-edit control-group overflow-cell editing">
+                    <textarea decorator="celleditor" data-celleditor-ignore="ENTER" value="{{rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}"></textarea>
+                </div>
+            {{/celleditor.editingRow}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[17].field}} grid-column grid-column-{{columns[17].field}} {{ (columns[17].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[17].field}}" style="{{cellStyle[rowIndex][17]}}">
+        {{# columns[17].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[17].readOnly) || (celleditor.editingRow == rowIndex && columns[17].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[17].field != 'name' && columns[17].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[17].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[17].field == 'name' || columns[17].field == 'description'))))}}
+        <span decorator="celleditor" class="overflow-cell" data-field="temtest">{{{stripHtml(temtest || 'No ' + columns[17].label)}}}</span>
+    {{/celleditor.editingRow}}
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[17].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[17].field == 'name' || columns[17].field == 'description'))))}}
+        <div class="input-append overflow-cell editing" decorator="celleditor" data-field="temtest" data-column="17" on-click="openEditor" >
+            <input type="text" value="Click to edit" data-field="temtest" readonly/>
+            <a href="#" class="add-on"><i class="icon-pencil"></i></a>
+        </div>
+    {{/celleditor.editingRow}}
+{{/}}
+
+{{# columns[17].custom === true}}
+    {{# customFields:customFieldIndex}}
+        {{# columns[17].documentFieldId  == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[17].readOnly) || (celleditor.editingRow == rowIndex && columns[17].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[17].field != 'name' && columns[17].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[17].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[17].field == 'name' || columns[17].field == 'description'))))}}
+                <span decorator="celleditor" class="overflow-cell" data-field="fieldValues[0]">
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length !== 0}}
+                        {{{stripHtml(rows[rowIndex].customFields[customFieldIndex].fieldValues[0])}}}
+                    {{/}}
+                    {{# rows[rowIndex].customFields[customFieldIndex].fieldValues.length === 0}}
+                        {{'No ' + columns[17].label}}
+                    {{/}}
+                </span>
+            {{/celleditor.editingRow}}
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[17].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[17].field == 'name' || columns[17].field == 'description'))))}}
+                <div class="input-append overflow-cell editing" decorator="celleditor" data-field="fieldValues[0]" data-column="17" on-click="openEditor">
+                    <input type="text" value="Click to edit" data-field="fieldValues[0]" tabindex="-1" readonly/>
+                    <a class="add-on" href="#"><i class="icon-pencil"></i></a>
+                </div>
+            {{/celleditor.editingRow}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[18].field}} grid-column grid-column-{{columns[18].field}} {{ (columns[18].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[18].field}}" style="{{cellStyle[rowIndex][18]}}">
+        {{# columns[18].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[18].readOnly) || (celleditor.editingRow == rowIndex && columns[18].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[18].field != 'name' && columns[18].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[18].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[18].field == 'name' || columns[18].field == 'description'))))}}
+        <span decorator="celleditor">{{flag5 ? "Yes" : "No"}}</span>
+    {{/}}
+
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[18].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[18].field == 'name' || columns[18].field == 'description'))))}}
+        <input decorator="celleditor" type="checkbox" class="celleditor-boolean" checked="{{flag5}}">
+    {{/}}
+{{/}}
+
+{{# columns[18].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{#columns[18].documentFieldId == fieldId}}
+            {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[18].readOnly) || (celleditor.editingRow == rowIndex && columns[18].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[18].field != 'name' && columns[18].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[18].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[18].field == 'name' || columns[18].field == 'description'))))}}
+                <span decorator="celleditor">{{(rows[rowIndex].customFields[customFieldIndex].fieldValues[0] == 'T' ? "Yes" : "No")}}</span>
+            {{/}}
+
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[18].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[18].field == 'name' || columns[18].field == 'description'))))}}
+                <input decorator="celleditor" class="celleditor-boolean" data-field="fieldValues[0]" type="checkbox" on-click="checkboxValueTranslator" checked="{{(rows[rowIndex].customFields[customFieldIndex].fieldValues[0] == 'T' ? true : false)}}">
+            {{/}}
+        {{/}}
+    {{/customFields}}
+{{/}}
+    </div>
+
+</div><!-- Representing a single column where the COLUMN_PLACEHOLDER token is replaced with the appropriate template, and COLUMN_INDEX_PLACEHOLDER is replaced with the correct index -->
+<!-- @private -->
+<div class="js-column-{{columns[19].field}} grid-column grid-column-{{columns[19].field}} {{ (columns[19].hidden ? 'hidden' : '')}}">
+    <div class="js-column-inner grid-column-inner grid-column-inner-{{columns[19].field}}" style="{{cellStyle[rowIndex][19]}}">
+        {{# columns[19].custom !== true}}
+    {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[19].readOnly) || (celleditor.editingRow == rowIndex && columns[19].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[19].field != 'name' && columns[19].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[19].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[19].field == 'name' || columns[19].field == 'description'))))}}
+        <span decorator="celleditor" class="cell-lookup overflow-cell">
+            {{priority.name || 'No ' + columns[19].label}}
+        </span>
+    {{/celleditor.editingRow}}
+    {{# editable && ((celleditor.editingRow == rowIndex && !columns[19].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[19].field == 'name' || columns[19].field == 'description'))))}}
+                <select decorator="celleditor" data-celleditor-ignore="ENTER" on-change="fixSelectValue" data-column-index="19" data-field="priority" value="{{priority.id}}">
+                    {{# columns.19.options}}
+                        <option value="{{id}}">{{name}}</option>
+                    {{/ columns.19.options}}
+                </select>
+    {{/celleditor.editingRow}}
+{{/}}
+
+
+
+{{# columns[19].custom === true}}
+    {{# rows[rowIndex].customFields:customFieldIndex}}
+        {{# columns[19].documentFieldId  == fieldId}}
+                {{# ((celleditor.editingRow == rowIndex && !editable) || (celleditor.editingRow != rowIndex)) &&  ((celleditor.editingRow != rowIndex || columns[19].readOnly) || (celleditor.editingRow == rowIndex && columns[19].readOnly) || (celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[19].field != 'name' && columns[19].field != 'description'))) || (celleditor.editingRow == rowIndex && documentType.category != 'SECTION')) && !((editable && celleditor.editingRow == rowIndex && !columns[19].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[19].field == 'name' || columns[19].field == 'description'))))}}
+                    {{#columns.19.options}}
+                        {{#rows[rowIndex].customFields[customFieldIndex].fieldValues[0] == id}}
+                            <span class="cell-lookup overflow-cell" decorator="celleditor">
+                                {{name}}
+                            </span>
+                        {{/}}
+                    {{/columns.19.options}}
+
+                    {{^rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}
+                        <span decorator="celleditor" class="overflow-cell">
+                            {{'No ' + columns[19].label}}
+                        </span>
+                    {{/rows.rowIndex.customFields.customFieldIndex.fieldValues[0]}}
+            {{/celleditor.editingRow}}
+            {{# editable && ((celleditor.editingRow == rowIndex && !columns[19].readOnly) && (celleditor.editingRow == rowIndex && documentType.category != 'SECTION') ||(celleditor.editingRow == rowIndex && (documentType.category == 'SECTION' && (columns[19].field == 'name' || columns[19].field == 'description'))))}}
+                <select decorator="celleditor" data-celleditor-ignore="ENTER" data-field="priority" value="{{rows[rowIndex].customFields[customFieldIndex].fieldValues[0]}}" >
+                    {{# columns.19.options}}
+                        <option value="{{id}}">{{name}}</option>
+                    {{/ columns.19.options}}
+                </select>
+            {{/celleditor.editingRow}}
+        {{/ end fieldId check}}
+    {{/customFields}}
+{{/}}
+    </div>
+
+</div>
+            </div>
+        {{/rows}}
+    </div>
+</div>
